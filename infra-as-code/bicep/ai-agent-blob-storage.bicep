@@ -171,6 +171,18 @@ resource azureDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-prev
   }
 }
 
+// Prevent Accidental Changes
+
+resource agentStorageAccountLocks 'Microsoft.Authorization/locks@2020-05-01' = {
+  scope: agentStorageAccount
+  name: '${agentStorageAccount.name}-lock' 
+  properties: {
+    level: 'CanNotDelete'
+    notes: 'Prevent Accidental Changes in AI Foundry Capability Host Agent Knowledge Storage Account'
+    owners: []
+  }
+}
+
 // ---- Outputs ----
 
 output storageAccountName string = agentStorageAccount.name

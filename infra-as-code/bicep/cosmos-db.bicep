@@ -200,6 +200,18 @@ resource assignDebugUserToCosmosAccountReader 'Microsoft.Authorization/roleAssig
   }
 }
 
+// Prevent Accidental Changes
+
+resource cosmosDbAccountLocks 'Microsoft.Authorization/locks@2020-05-01' = {
+  scope: cosmosDbAccount
+  name: '${cosmosDbAccount.name}-lock'
+  properties: {
+    level: 'CanNotDelete'
+    notes: 'Prevent Accidental Changes in AI Foundry Capability Host Agent Thread Cosmos DB Account'
+    owners: []
+  }
+}
+
 // ---- Outputs ----
 
 output cosmosDbAccountName string = cosmosDbAccount.name
