@@ -147,7 +147,7 @@ resource azureFirewallPolicy 'Microsoft.Network/firewallPolicies@2024-05-01' = {
               webCategories: []
               targetFqdns: [
                  '*'
-                 // 'api.bing.microsoft.com' // Production readiness change: refine your target FQDNs to restrict egress traffic exclusively to the external services and endpoints your agent depends on. For instance this fqnd scopes access specifically to Grounding with Bing.
+                 // 'api.example.org' // Production readiness change: refine your target FQDNs to restrict egress traffic exclusively to the external services and endpoints your agent depends on.
               ]
               targetUrls: []
               terminateTLS: false
