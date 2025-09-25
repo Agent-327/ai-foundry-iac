@@ -79,8 +79,39 @@ resource agentStorageAccount 'Microsoft.Storage/storageAccounts@2024-01-01' = {
     }
   }
 
-  resource blob 'blobServices' existing = {
+  resource blob 'blobServices' = {
     name: 'default'
+    properties: {
+      cors: {
+        corsRules: [
+          {
+            allowedOrigins: [
+              '*'
+            ]
+            allowedHeaders: [
+              '*'
+            ]
+            exposedHeaders: [
+              '*'
+            ]
+            allowedMethods: [
+              'DELETE'
+              'GET'
+              'HEAD'
+              'MERGE'
+              'POST'
+              'OPTIONS'
+              'PUT'
+              'PATCH'
+            ]
+            maxAgeInSeconds: 120
+          }
+        ]
+      }
+      deleteRetentionPolicy: {
+        allowPermanentDelete: false
+      }
+    }
   }
 }
 
