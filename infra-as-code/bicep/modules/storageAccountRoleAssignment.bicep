@@ -47,7 +47,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
     roleDefinitionId: roleDefinitionId
     principalId: principalId
     principalType: 'ServicePrincipal'
-    conditionVersion: conditionVersion
-    condition: condition
+    conditionVersion: conditionVersion != '' ? conditionVersion : null
+    condition: condition != '' ? condition : null
   }
 }
