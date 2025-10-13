@@ -273,13 +273,14 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-06-01' existing  =
 
 // Role assignments
 
-resource projectDbCosmosDbOperatorAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(aiFoundry::project.id, cosmosDbOperatorRole.id, cosmosDbAccount.id)
-  scope: cosmosDbAccount
-  properties: {
+@description('Grant the AI Foundry Project managed identity Cosmos Db Db Operator user role permissions.')
+module projectDbCosmosDbOperatorAssignment './modules/cosmosdbRoleAssignment.bicep' = {
+  name: 'projectDbCosmosDbOperatorAssignmentDeploy'
+  params: {
     roleDefinitionId: cosmosDbOperatorRole.id
     principalId: aiFoundry::project.identity.principalId
-    principalType: 'ServicePrincipal'
+    existingAiFoundryName: existingAiFoundryName
+    existingCosmosDbAccountName: existingCosmosDbAccountName
   }
 }
 
