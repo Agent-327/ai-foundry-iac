@@ -24,6 +24,16 @@ param privateEndpointSubnetResourceId string
 
 // ---- New resources ----
 
+@description('Deploy Azure AI Search instance for the Azure AI Foundry Agent Service (dependency). This is used when a user uploads a file to the agent, and the agent needs to search for information in that file.')
+module deployUserManagedIdentity 'ai-agent-user-managed-identity.bicep' = {
+  name: 'agentUserManagedIdentityDeploy'
+  scope: resourceGroup()
+  params: {
+    location: location
+    baseName: baseName
+  }
+}
+
 @description('Deploy Azure Storage account for the Azure AI Foundry Agent Service (dependency). This is used for binaries uploaded within threads or as "knowledge" uploaded as part of an agent.')
 module deployAgentStorageAccount 'ai-agent-blob-storage.bicep' = {
   name: 'agentStorageAccountDeploy'
@@ -34,6 +44,7 @@ module deployAgentStorageAccount 'ai-agent-blob-storage.bicep' = {
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
     debugUserPrincipalId: debugUserPrincipalId
     privateEndpointSubnetResourceId: privateEndpointSubnetResourceId
+    existingAgentUserManagedIdentityName: deployUserManagedIdentity.outputs.agentUserManagedIdentityName
   }
 }
 
@@ -47,6 +58,7 @@ module deployCosmosDbThreadStorageAccount 'cosmos-db.bicep' = {
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
     debugUserPrincipalId: debugUserPrincipalId
     privateEndpointSubnetResourceId: privateEndpointSubnetResourceId
+    existingAgentUserManagedIdentityName: deployUserManagedIdentity.outputs.agentUserManagedIdentityName
   }
 }
 
@@ -60,6 +72,7 @@ module deployAzureAISearchService 'ai-search.bicep' = {
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
     debugUserPrincipalId: debugUserPrincipalId
     privateEndpointSubnetResourceId: privateEndpointSubnetResourceId
+    existingAgentUserManagedIdentityName: deployUserManagedIdentity.outputs.agentUserManagedIdentityName
   }
 }
 
@@ -68,3 +81,4 @@ module deployAzureAISearchService 'ai-search.bicep' = {
 output cosmosDbAccountName string = deployCosmosDbThreadStorageAccount.outputs.cosmosDbAccountName
 output storageAccountName string = deployAgentStorageAccount.outputs.storageAccountName
 output aiSearchName string = deployAzureAISearchService.outputs.aiSearchName
+output agentUserManagedIdentityName string = deployUserManagedIdentity.outputs.agentUserManagedIdentityName
