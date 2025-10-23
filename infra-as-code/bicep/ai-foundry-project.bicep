@@ -187,7 +187,6 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-06-01' existing  =
       }
       dependsOn: [
         applicationInsightsConnection  // Single thread changes to the project, else conflict errors tend to happen
-        projectBlobDataOwnerConditionalAssignment
       ]
     }
 
