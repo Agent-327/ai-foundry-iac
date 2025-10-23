@@ -22,7 +22,7 @@ resource azureAISearchService 'Microsoft.Search/searchServices@2025-02-01-previe
 
 // ---- Role assignment ----
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceGroup().id, azureAISearchService.id, principalId, roleDefinitionId)
+  name: guid(azureAISearchService.id, principalId, roleDefinitionId)
   scope: azureAISearchService
   properties: {
     roleDefinitionId: roleDefinitionId

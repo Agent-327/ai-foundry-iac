@@ -21,7 +21,7 @@ resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2025-05-01-previ
 
 // ---- Role assignment ----
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceGroup().id, cosmosDbAccount.id, principalId, roleDefinitionId)
+  name: guid(cosmosDbAccount.id, principalId, roleDefinitionId)
   scope: cosmosDbAccount
   properties: {
     roleDefinitionId: roleDefinitionId

@@ -28,7 +28,7 @@ resource agentStorageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' exis
 
 // ---- Role assignment ----
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceGroup().id, agentStorageAccount.id, principalId, roleDefinitionId)
+  name: guid(agentStorageAccount.id, principalId, roleDefinitionId)
   scope: agentStorageAccount
   properties: {
     roleDefinitionId: roleDefinitionId
