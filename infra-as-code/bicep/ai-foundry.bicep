@@ -95,7 +95,7 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-06-01' = {
     name: 'agent-model'
     sku: {
       capacity: 50
-      name: 'DataZoneStandard' // Production readiness, use provisioned deployments with automatic spillover https://learn.microsoft.com/azure/ai-services/openai/how-to/spillover-traffic-management.
+      name: 'Global Standard' // Production readiness, use provisioned deployments with automatic spillover https://learn.microsoft.com/azure/ai-services/openai/how-to/spillover-traffic-management.
     }
     properties: {
       model: {
