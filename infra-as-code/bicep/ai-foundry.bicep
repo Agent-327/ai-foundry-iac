@@ -100,8 +100,8 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-06-01' = {
     properties: {
       model: {
         format: 'OpenAI'
-        name: 'o4-mini'
-        version: '2025-04-16'  // Use a model version available in your region.
+        name: 'gpt-4o'
+        version: '2024-11-20'  // Use a model version available in your region.
       }
       versionUpgradeOption: 'NoAutoUpgrade' // Production deployments should not auto-upgrade models.  Testing compatibility is important.
       raiPolicyName: 'Microsoft.DefaultV2'  // If this isn't strict enough for your use case, create a custom RAI policy.
