@@ -2,7 +2,7 @@ targetScope = 'resourceGroup'
 
 @description('The region in which this architecture is deployed. Should match the region of the resource group.')
 @minLength(1)
-param location string = 'eastus'
+param location string = resourceGroup().location
 
 @description('This is the base name for each Azure resource name (6-8 chars)')
 @minLength(6)
@@ -95,7 +95,7 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-06-01' = {
     name: 'agent-model'
     sku: {
       capacity: 50
-      name: 'Global Standard' // Production readiness, use provisioned deployments with automatic spillover https://learn.microsoft.com/azure/ai-services/openai/how-to/spillover-traffic-management.
+      name: 'GlobalStandard' // Production readiness, use provisioned deployments with automatic spillover https://learn.microsoft.com/azure/ai-services/openai/how-to/spillover-traffic-management.
     }
     properties: {
       model: {
